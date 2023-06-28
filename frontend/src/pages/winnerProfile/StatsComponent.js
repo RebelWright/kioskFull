@@ -7,36 +7,32 @@ const StatsComponent = ({ trophyWinner, onClose }) => {
     <div className="card mb-3 statsComponent">
       <div className="row g-0">
         <div className="col-md-4">
-          <div className="card-body position-relative blueStats text-white">
-            <button type="button" className="btn-close position-absolute top-0 end-0" aria-label="Close" onClick={onClose}></button>
-            <h5 className="card-title">-STATS-</h5>
+          <div className="card-body position-relative redStats text-white">
             <img src={trophyWinner.award?.data?.attributes?.jerseyIconLink} alt="football-icon" className="img-fluid jerseyStyle" />
-            <h6>{trophyWinner.jerseyNum}</h6>
-            <span>{trophyWinner.firstName} {trophyWinner.lastName}</span>
+            {/* <h2 className="jerseyNum text-center mt-5 athleticFont">{trophyWinner.jerseyNum}</h2> */}
+            <h2 className={`jerseyNum text-center mt-5 athleticFont ${trophyWinner.sport === 'baseball' ? 'jerseyNumWhite' : ''}`}>{trophyWinner.jerseyNum}</h2>
+
+            <p className= "athleticFont athleteName">{trophyWinner.firstName} {trophyWinner.lastName}</p>
             <div style={{overflow: 'auto', maxHeight: '200px'}}>
-            {trophyWinner.class && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.class}</span></p>}
-              {/* <div className="my-2 statStyle">Class: {trophyWinner.class}</div> */}
-              {/* <div className="my-2 statStyle">Ht/Wt: {trophyWinner.htwt}</div> */}
-              {trophyWinner.htwt && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.htwt}</span></p>}
-              {/* <div className="my-2 statStyle">Hometown: {trophyWinner.hometown}</div> */}
-              {trophyWinner.hometown && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.hometown}</span></p>}
-              {trophyWinner.prevSchool && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.prevSchool}</span></p>}
-              {/* <div className="my-2 statStyle">Prev. School: {trophyWinner.prevSchool}</div> */}
-              {/* <div className="my-2 statStyle">Position: {trophyWinner.position}</div> */}
-              {trophyWinner.position && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.position}</span></p>}
-              {/* <div className="my-2 statStyle">High School: {trophyWinner.highSchool}</div> */}
-              {trophyWinner.highSchool && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.highSchool}</span></p>}
-              {/* <div className="my-2 statStyle">Major: {trophyWinner.major}</div> */}
-              {trophyWinner.major && <p className="playerStatTitles quote"><span className="statStyle ">{trophyWinner.major}</span></p>}
+            {trophyWinner.class && trophyWinner.class !== "null" && <p className="playerStatTitles quote mt-1">Class: <span className="statStyle mt-1">{trophyWinner.class}</span></p>}
+            {trophyWinner.htwt && trophyWinner.htwt !== "null" && <p className="playerStatTitles quote">Ht/Wt: <span className="statStyle ">{trophyWinner.htwt}</span></p>}
+            {trophyWinner.hometown && trophyWinner.hometown !== "null" && <p className="playerStatTitles quote">Hometown: <span className="statStyle ">{trophyWinner.hometown}</span></p>}
+            {trophyWinner.prevSchool && trophyWinner.prevSchool !== "null" && <p className="playerStatTitles quote">Previous School: <span className="statStyle ">{trophyWinner.prevSchool}</span></p>}
+            {trophyWinner.position && trophyWinner.position !== "null" && <p className="playerStatTitles quote">Position: <span className="statStyle ">{trophyWinner.position}</span></p>}
+            {trophyWinner.highSchool && trophyWinner.highSchool !== "null" && <p className="playerStatTitles quote">Highschool: <span className="statStyle ">{trophyWinner.highSchool}</span></p>}
+            {trophyWinner.major && trophyWinner.major !== "null" && <p className="playerStatTitles quote">Major: <span className="statStyle ">{trophyWinner.major}</span></p>}
             </div>
           </div>
         </div>
-        <div className="col-md-8 redStats text-white">
+        <div className="col-md-8 goldStats text-white">
           <div className="card-body position-relative">
-            <h5 className="card-title">Biographical Information</h5>
-            <ReactMarkdown className="card-text" style={{overflow: 'auto', maxHeight: '200px'}}>
+            <h5 className="card-title athleticFont statsTitle">-STATS-</h5>
+            <button className="btn btn-light position-absolute top-0 end-0 statComponentButton" onClick={onClose}>X</button>
+            {/* <ReactMarkdown className="card-text statsText" style={{overflow: 'auto', maxHeight: '400px'}}>
               {trophyWinner.stats}
-            </ReactMarkdown>
+            </ReactMarkdown> */}
+            {trophyWinner.stats && trophyWinner.stats !== "null" && <ReactMarkdown className="card-text statsText" style={{overflow: 'auto', maxHeight: '200px'}}>{trophyWinner.stats}
+            </ReactMarkdown>}
           </div>
         </div>
       </div>

@@ -23,14 +23,14 @@ const WinnerProfilePage = () => {
   console.log(winner)
 
   return (
-    <div className="container-fluid bg-dark full-bg" style={{ backgroundImage: `url(${winner?.imageLink})`, backgroundSize: 'cover' }}>
+    <div className="container-fluid bg-dark yearWinnerImage" style={{ backgroundImage: `url(${winner?.imageLink})`, backgroundSize: 'cover' }}>
       <MSHFWhiteLogo className="img-fluid position-absolute top-0 end-0 whiteLogo" />
       <div className="row justify-content-between">
         <div className="col-md-4">
           <div className="card text-white yearWinnerBanner">
             <div className="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h1 className="yearBannerText">{winner.award?.data?.attributes?.name}</h1>
+                <h1 className="yearBannerText athleticFont">{winner.award?.data?.attributes?.name}</h1>
                 <div>
                   <p className="card-text d-inline yearBannerYear">WINNER {winner.years?.data[0]?.attributes?.awardYear}</p>
                   <img className='text-uppercase bannerIcon d-inline' src={winner.award?.data?.attributes?.iconLink} alt="icon"/>
@@ -43,18 +43,15 @@ const WinnerProfilePage = () => {
       </div>
   
       
-      <div className="col-md-4 text-white text-uppercase">
-          <img src={winner.school?.data?.attributes?.logoLink} alt="school-logo" className="my-4 img-fluid schoolLogo" />
-          <div className= "row">
-          <span className="yearWinnerText">{winner.firstName} </span>
-          <span className="yearWinnerText"> {winner.lastName}</span>
-          </div>
-          <p className="yearWinnerSubText">{winner.positionFullName}</p>
-        </div>
-        <div className="col-md-4 text-white text-uppercase">
-          <button className="btn w-100 mb-2 btnStyle profileButton" onClick={() => setShowStats(true)}>Stats</button>
-          <button className="btn w-100 mb-2 btnStyle yearBtn" onClick={() => navigate(`/highlights/${athleteId}`)}>Highlights</button>
-          <button className="btn w-100 mb-2 btnStyle yearBtn" onClick={() => navigate('/awards')}>Menu</button>
+      <div className="col-md-4 text-white text-uppercase align-items-left profileInfo">
+          <img src={winner.school?.data?.attributes?.logoLink} alt="school-logo" className="my-4 img-fluid profileSchoolLogo" />
+          <p className="profileText athleticFont">{winner.firstName} {winner.lastName}</p>
+          <p className="profileSubText">{winner.positionFullName}</p>
+      </div>
+        <div className="col-md-4 text-white text-uppercase profileContainer athleticFont">
+          <button className="btn mb-2 btnStyle winnerButton1" onClick={() => setShowStats(true)}>Stats</button>
+          <button className="btn mb-2 btnStyle profileButton" onClick={() => navigate(`/highlights/${athleteId}`)}>Highlights</button>
+          <button className="btn mb-2 btnStyle yellowBtnProfile" onClick={() => navigate('/awards')}>Menu</button>
         </div>
   
       {showStats && <StatsComponent trophyWinner={winner} onClose={() => setShowStats(false)} />}

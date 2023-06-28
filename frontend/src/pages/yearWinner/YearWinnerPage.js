@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FinalistsComponent from './FinalistsComponent';
 
+// import { ReactComponent as MSHFWhiteLogo } from 'frontend/src/public/images/mshf-white-logo.svg';
 import { ReactComponent as MSHFWhiteLogo } from './sports_hall_logo_white.svg';
+
 
 const YearWinnerPage = () => {
   const { awardId, yearId } = useParams();
   const [yearData, setYearData] = useState();
-  
+
   const [awardData, setAwardData] = useState();
   const [winner, setWinner] = useState();
   const [showFinalists, setShowFinalists] = useState(false);
   const navigate = useNavigate();
   const [athletesForAward, setAthletesForAward] = useState();
-  const [schools, setSchools] = useState();
-  const [school, setSchool] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:1337/api/years/${yearId}?populate=*`)
@@ -44,50 +44,52 @@ const YearWinnerPage = () => {
       });
   }, [awardId, yearId]);
 
-  
+
   return (
-    <div className="container-fluid bg-dark full-bg" style={{ backgroundImage: `url(${winner?.attributes.imageLink})`, backgroundSize: 'cover' }}>
-    <MSHFWhiteLogo className="img-fluid position-absolute top-0 end-0 whiteLogo" />
-    <div className="row justify-content-between">
-      <div className="col-md-4">
-        <div className="card text-white yearWinnerBanner">
-          <div className="card-body d-flex justify-content-between align-items-center">
-            <div>
-              <h1 className="yearBannerText">{awardData?.attributes.name}</h1>
+    <div className="container-fluid bg-dark yearWinnerImage" style={{ backgroundImage: `url(${winner?.attributes.imageLink})`}}>
+      <MSHFWhiteLogo className="img-fluid position-absolute top-0 end-0 whiteLogo" />
+      <div className="row justify-content-between">
+        <div className="col-md-4">
+          <div className="card text-white yearWinnerBanner">
+            <div className="card-body d-flex justify-content-between align-items-center">
               <div>
-                <p className="card-text d-inline yearBannerYear">WINNER {yearData?.data.attributes.awardYear}</p>
-                <img className='text-uppercase bannerIcon d-inline' src={awardData?.attributes?.iconLink} alt="icon"/>
+                <h1 className="yearBannerText athleticFont">{awardData?.attributes.name}</h1>
+                <div>
+                  <p className="card-text d-inline yearBannerYear">WINNER {yearData?.data.attributes.awardYear}</p>
+                  <img className='text-uppercase bannerIcon d-inline' src={awardData?.attributes?.iconLink} alt="icon" />
+                </div>
               </div>
+              <img src={awardData?.attributes?.sponsorLogoLink} alt="sponsor-logo" className="my-4 img-fluid sponsorLogo" style={{ maxWidth: 'fit-content' }} />
             </div>
-            <img src={awardData?.attributes?.sponsorLogoLink} alt="sponsor-logo" className="my-4 img-fluid sponsorLogo" style={{maxWidth: 'fit-content'}} />
           </div>
         </div>
       </div>
-    </div>
 
-    <div className="row">
-      <div className="col-md-4 text-white text-uppercase">
-        <img src={winner?.attributes.schoolLogoLink} alt="school-logo" className="my-4 img-fluid schooolLogo" />
-        {winner &&
-          <div>
-            <h3 className="yearWinnerText">{winner.attributes.firstName} {winner.attributes.lastName}</h3>
-            <p className="yearWinnerSubText">{winner.attributes.positionFullName}</p>
-            <button
-              className="btn w-100 mb-2 btnStyle profileButton"
-              onClick={() => navigate(`/profile/${winner.id}`)}
-            >
-              Profile
-            </button>
-            <button className="btn w-100 mb-2 btnStyle yearBtn" onClick={() => setShowFinalists(true)}>Finalists</button>
-            <button className="btn w-100 mb-2 btnStyle yearBtn" onClick={() => navigate('/awards')}>Menu</button>
-          </div>
-        }
+      <div className="col">
+        <div className="col-md-4 text-white text-uppercase justify-content-center align-items-center winnerInfo">
+          <img src={winner?.attributes.schoolLogoLink} alt="school-logo" className="my-4 img-fluid schoolLogo" />
+          {winner &&
+            <div>
+              <h3 className="yearWinnerText athleticFont">{winner.attributes.firstName} {winner.attributes.lastName}</h3>
+              <p className="text-start yearWinnerSubText">{winner.attributes.positionFullName}</p>
+            </div>
+          }
+        </div>
+        <div className="col-md-4 text-white text-uppercase buttonContainerWinner athleticFont">
+          <button
+            className="btn w-75 mb-2 btnStyle winnerButton"
+            onClick={() => navigate(`/profile/${winner.id}`)}
+          >
+            Profile
+          </button>
+          <button className="btn w-75 mb-2 btnStyle yellowBtn" onClick={() => setShowFinalists(true)}>Finalists</button>
+          <button className="btn w-75 mb-2 btnStyle yellowBtn1" onClick={() => navigate('/awards')}>Menu</button>
+        </div>
       </div>
-    </div>
 
-    {showFinalists && <FinalistsComponent finalists={athletesForAward} awardId={awardId} yearId={yearId} onClose={() => setShowFinalists(false)} />}
-  </div>
-);
+      {showFinalists && <FinalistsComponent finalists={athletesForAward} awardId={awardId} yearId={yearId} onClose={() => setShowFinalists(false)} />}
+    </div>
+  );
 };
 
 export default YearWinnerPage;
