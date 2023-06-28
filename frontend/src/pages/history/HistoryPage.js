@@ -45,48 +45,62 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="container-fluid bg-dark full-bg" style={{ backgroundImage: `url(${award?.data.attributes.trophyImageLink})`, backgroundSize: 'cover' }}>
-      <MSHFWhiteLogo className="img-fluid position-absolute top-0 end-0 whiteLogo" />
-      <div className="row justify-content-between">
-        {award && award.data ?
-          <>
-            <div className="text-white">
-              <div className="card-body historyBanner" >
-                <p className="text-uppercase bannerFirstName">{award.data.attributes.firstName}</p>
-                <h1 className="card-title text-uppercase bannerFullName">{award.data.attributes.name}</h1>
-              </div>
-              <div className="text-center">
-                <img src={award.data.attributes.iconLink} alt="trophyIcon" className="my-4 historyIcon" />
-                <h1 className="card-title text-uppercase historySport">{award.data.attributes.sport}</h1>
-                <p className='text-uppercase historySubSport'>{getDisplayText()}</p>
-              </div>
-              <div className="buttonContainer">
-                <button
-                  className={`btn mb-2 btnStyleHistory ${componentToShow === 'history' ? 'btn-active' : 'btn-inactive'}`}
-                  onClick={() => setComponentToShow('history')}>
-                  History
-                </button>
-                <button
-                  className={`btn mb-2 btnStyleHistory ${componentToShow === 'year' ? 'btn-active' : 'btn-inactive'}`}
-                  onClick={() => setComponentToShow('year')}>
-                  Year
-                </button>
-                <button className="btn btn-danger mb-2 btnStyleHistory" onClick={handleNavigation}>
-                  {componentToShow ? 'Back' : 'Menu'}
-                </button>
-              </div>
-            </div>
+    <>
+      <div className=' historyBackground'>
+      <img src={award?.data.attributes.trophyImageLink} alt="" className="container-fluid  historyTrophyImage " />
+        <div className="container-fluid historyStuff" >
+          <MSHFWhiteLogo className="img-fluid position-absolute top-0 end-0 whiteLogo" />
+          <div className="row ">
+            {award && award.data ?
+              <>
+
+                <div className="card-body text-white historyBanner" >
+                  <p className="text-uppercase bannerFirstName">{award.data.attributes.firstName}</p>
+                  <h1 className="card-title text-uppercase bannerFullName athleticFont">{award.data.attributes.name}</h1>
+                </div>
+                <div className={`iconContainer ${componentToShow ? 'stretchedIconContainer' : ''}`} >
+                <p className="flex-start text-white text-uppercase historySport athleticFont">
+  {award.data.attributes.sport.replace(/\s*\((M|W)\)/g, '')}
+</p>
+
+                  <p className='flex-start text-white text-uppercase historySubSport'>{getDisplayText()}</p>
+                  <img src={award.data.attributes.iconLink} alt="trophyIcon" className="historyIcon img-fluid" />
+                </div>
+
+                <div className={`athleticFont buttonContainer ${componentToShow ? 'stretchedContainer' : ''}`}>
+                  <button
+                    className={`btn btnStyle mb-2 btnStyleHistory ${componentToShow ? 'stretched' : ''}`}
+                    onClick={() => setComponentToShow('history')}>
+                    History
+                  </button>
+                  <button
+                    className={`btn mb-2 btnStyle btnStyleHistory ${componentToShow ? 'stretched' : ''}`}
+                    onClick={() => setComponentToShow('year')}>
+                    Year
+                  </button>
+                  <button
+                    className={`btn btnStyle mb-2 btnStyleHistory1 ${componentToShow ? 'stretched' : ''}`}
+                    onClick={handleNavigation}>
+                    {componentToShow ? 'Back' : 'Menu'}
+                  </button>
+                </div>
 
 
-            <div >
-              {ComponentToShow && <ComponentToShow />}
-            </div>
-          </>
-          :
-          <p>Loading...</p>
-        }
+
+
+                <div>
+                  {ComponentToShow && <ComponentToShow />}
+                </div>
+
+
+              </>
+              :
+              <p>Loading...</p>
+            }
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

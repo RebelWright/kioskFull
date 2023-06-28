@@ -15,14 +15,14 @@ const Home = () => {
                 </div>
             </div>
             <div className="row justify-content-center align-items-center text-center">
-                <div className="col-md-12 text-white">
+                <div className="text-white">
                     <MSHFColorLogo className="img-fluid colorLogo" />
-                    <div>
+                    <div >
                         <span className="theWord">The</span>
-                        <span className=" text-uppercase homeText">Outstanding</span>
-                        <h4 className="text-uppercase homeText">Player Awards</h4>
+                        <span className=" text-uppercase homeText athleticFont">Outstanding</span>
+                        <h4 className="text-uppercase homeText athleticFont">Player Awards</h4>
                     </div>
-                    <button className="btn btn-danger mt-5 btnStyle " onClick={() => navigate("/awards")}>Let's Go</button>
+                    <button className="btn btnStyle btnHome athleticFont" onClick={() => navigate("/awards")}>Let's Go</button>
                 </div>
             </div>
         </div>

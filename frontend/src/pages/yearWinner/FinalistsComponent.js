@@ -26,14 +26,15 @@ const FinalistsComponent = ({ awardId, yearId, onClose }) => {
       <div className="row justify-content-end">
         <div className="col-md-4">
           <div className="card text-white finalistsComponent">
-            <div className="card-header">
-              <h5 className="card-title">FINALIST</h5>
-              <button className="btn btn-light float-right" onClick={onClose}>X</button>
+            <div>
+              <p className="finalistsTitle text-center athleticFont">-FINALIST-</p>
+              <button className="btn btn-light position-absolute top-0 end-0 componentButton" onClick={onClose}>X</button>
             </div>
-            <div className="card-body" style={{overflow: 'auto', maxHeight: '200px'}}>
+            <div className="card-body" style={{overflow: 'auto', maxHeight: '600px'}}>
               {finalists.map((finalist, index) => (
                 <div key={index}>
-                  <p>{finalist.attributes.firstName} {finalist.attributes.lastName}, {finalist.attributes.position}, {finalist.attributes.schoolName}</p>
+                  <p className='finalistsName d-inline'>{finalist.attributes.firstName} {finalist.attributes.lastName}, </p>
+                  <p className=' d-inline finalistsInfo'>{finalist.attributes.position}, {finalist.attributes.schoolName}</p>
                 </div>
               ))}
             </div>
